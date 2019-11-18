@@ -1,0 +1,3 @@
+export default {
+	CLICK_CALCULATE_PACKS: 'CLICK_CALCULATE_PACKS'
+}
