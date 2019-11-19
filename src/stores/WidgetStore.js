@@ -5,12 +5,60 @@ import { EventEmitter } from 'events';
 class WidgetStore extends EventEmitter {
 	constructor() {
 		super();
+		this.resetState();
+		this.sizes = Object.keys(this.state.result).sort((a, b) => { return a - b; }).map(Number);
 		WidgetDispatcher.register(this.handleActions.bind(this));
 	}
 
+	resetState() {
+		this.state = {
+			widgets: 0,
+			result: {
+				250: 0,
+				500: 0,
+				1000: 0,
+				2000: 0,
+				5000: 0
+			}
+		};
+	}
+
+	getState() {
+		return this.state;
+	}
+
 	clickCalculatePacks(data) {
-		// TODO ...
+		this.state.widgets = data.widgets;
+		this.ruleA().ruleB();
+
 		this.emit("click.calculate_packs");
+	}
+
+	/**
+	 * Rule A.
+	 *
+	 * Send out no more widgets than necessary to fulfil the order.
+	 */
+	ruleA() {
+		this.state.result[this.sizes[0]] = Math.ceil(this.state.widgets / this.sizes[0]);
+
+		return this;
+	}
+
+	/**
+	 * Rule B.
+	 *
+	 * Send out as few packs as possible to fulfil each order.
+	 */
+	ruleB() {
+		for (let i = this.sizes.length - 1; i > 0; i--) {
+			if (this.sizes[i] % this.sizes[0] === 0) {
+				if (this.sizes[0] >= this.sizes[i] / this.sizes[0]) {
+					this.state.result[this.sizes[i]] = Math.floor(this.sizes[0] * this.state.result[this.sizes[0]] / this.sizes[i]);
+					this.state.result[this.sizes[0]] = ((this.state.result[this.sizes[0]] * this.sizes[0]) - (this.state.result[this.sizes[i]] * this.sizes[i])) / this.sizes[0];
+				}
+			}
+		}
 	}
 
 	handleActions(action) {

@@ -8,26 +8,22 @@ import React from 'react';
 class Calc extends React.Component {
   constructor(props) {
     super(props);
-      this.state = {
-        form: {
-          widgets: ''
-        },
-        validation: null
+    this.state = {
+      result: "Here comes the result."
     }
     this.handleClickCalculatePacks = this.handleClickCalculatePacks.bind(this);
   }
 
   componentDidMount() {
-    WidgetStore
-    .on("click.calculate_packs", () => {
-      // TODO ...
+    WidgetStore.on("click.calculate_packs", () => {
+      let newState = Object.assign({}, this.state);
+      newState.result = WidgetStore.getState().result;
+      this.setState(newState);
     });
   }
 
   handleClickCalculatePacks(e) {
-    WidgetActions.clickCalculatePacks({
-      widgets: e.target.elements.widgets.value
-    });
+    WidgetActions.clickCalculatePacks({ widgets: e.target.elements.widgets.value });
     e.preventDefault();
   }
 
@@ -39,12 +35,12 @@ class Calc extends React.Component {
         </CardHeader>
         <CardBody className="d-flex justify-content-center">
           <Form className="form" onSubmit={ (e) => this.handleClickCalculatePacks(e) }>
-            { this.state.validation !== null ? <p className="text-danger">{this.state.validation}</p> : null }
             <FormGroup>
               <Input
-                type="widgets"
+                type="number"
                 name="widgets"
                 id="widgets"
+                min={1}
                 placeholder="How many widgets?"
                 required
               />
@@ -53,7 +49,7 @@ class Calc extends React.Component {
           </Form>
         </CardBody>
         <CardFooter className="text-muted">
-          <p>Result here!</p>
+          { JSON.stringify(this.state.result) }
         </CardFooter>
       </Card>
     );
