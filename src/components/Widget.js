@@ -1,11 +1,11 @@
-import WidgetActions from '../../actions/WidgetActions.js';
-import WidgetStore from '../../stores/WidgetStore.js';
+import WidgetActions from '../actions/WidgetActions.js';
+import WidgetStore from '../stores/WidgetStore.js';
 import {
   Button, Card, CardBody, CardFooter, CardHeader, Form, FormGroup, Input
 } from 'reactstrap';
 import React from 'react';
 
-class Calc extends React.Component {
+class Widget extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,4 +56,4 @@ class Calc extends React.Component {
   }
 }
 
-export { Calc };
+export { Widget };
