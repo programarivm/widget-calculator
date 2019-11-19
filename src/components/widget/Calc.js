@@ -9,7 +9,7 @@ class Calc extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      result: "Here comes the result."
+      result: null
     }
     this.handleClickCalculatePacks = this.handleClickCalculatePacks.bind(this);
   }
@@ -49,7 +49,7 @@ class Calc extends React.Component {
           </Form>
         </CardBody>
         <CardFooter className="text-muted">
-          { JSON.stringify(this.state.result) }
+          { this.state.result !== null ? JSON.stringify(this.state.result) : <small>Wally says: Have a lovely day!</small>}
         </CardFooter>
       </Card>
     );
