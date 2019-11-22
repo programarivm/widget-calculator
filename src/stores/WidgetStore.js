@@ -14,11 +14,11 @@ class WidgetStore extends EventEmitter {
 		this.state = {
 			widgets: 0,
 			result: {
-				250: 0,
-				500: 0,
-				1000: 0,
-				2000: 0,
-				5000: 0
+				5: 0,
+				7: 0,
+				10: 0,
+				15: 0,
+				23: 0
 			}
 		};
 	}

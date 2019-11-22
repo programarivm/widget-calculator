@@ -1,4 +1,4 @@
-# Wally's Widget
+# Widget Calculator
 
 This app helps you distribute a number of widgets in packs according to certain domain rules.
 

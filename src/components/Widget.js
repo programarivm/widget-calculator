@@ -31,7 +31,7 @@ class Widget extends React.Component {
     return (
       <Card>
         <CardHeader className="bg-white">
-          <h5 className="text-center">Wally's Widget</h5>
+          <h5 className="text-center">Widget Calculator</h5>
         </CardHeader>
         <CardBody className="d-flex justify-content-center">
           <Form className="form" onSubmit={ (e) => this.handleClickCalculatePacks(e) }>
